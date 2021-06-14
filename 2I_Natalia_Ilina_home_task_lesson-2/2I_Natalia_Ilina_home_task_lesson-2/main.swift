@@ -105,12 +105,11 @@ struct Queue <T: Containable> {
         return totalSpecificWeight
     }
     
-    func filterSpecifiCaloric(array: [Double]) -> [Double] {
-        var specificCaloricNewArray = [Double]()
+    func filterSpecifiCaloric(predicate: (T) -> Bool) -> [T] {
+        var specificCaloricNewArray:[T] = []
         
-        for index in array {
-            guard index >= 0 && Int(index) < elements.count else {return []} // тут после else возвращаю пустой массив, так как надо перехватить ошибку, а строку или 0 компилятор не позволяет поставить
-            if elements[Int(index)].caloric <= 55.0 {
+        for index in elements {
+            if predicate(index) {
                 specificCaloricNewArray.append(index)
             }
         }
@@ -128,6 +127,12 @@ struct Queue <T: Containable> {
             caloric += self.elements[Int(index)].caloric
         }
         return caloric
+    }
+}
+
+extension Vegetables {
+    var toText: String {
+        "Количество протеина меньше 30 \(proteins)"
     }
 }
 var queue = Queue<Vegetables>(weight: 0.0, caloric: 0.0, fats: 0.0, carbs: 0.0, proteins: 0.0)
@@ -152,6 +157,12 @@ print(queue.totalProteins)
 
 print(queue[0])
 print(queue.filterSpecificWeight(indices: 0,1,2,3,4,5,6,7))
-print(queue.filterSpecifiCaloric(array: [0,1,2,3,4,5,6,7]))
+
+var lowCalorie = queue.filterSpecifiCaloric() { elements in elements.caloric <= 55.0 }
+
+lowCalorie.forEach { print($0.toText)}
 
 
+//1. Придумать класс, методы которого могут завершаться неудачей и возвращать либо значение, либо ошибку Error?. Реализовать их вызов и обработать результат метода при помощи конструкции if let, или guard let.
+//
+//2. Придумать класс, методы которого могут выбрасывать ошибки. Реализуйте несколько throws-функций. Вызовите их и обработайте результат вызова при помощи конструкции try/catch.
