@@ -93,7 +93,10 @@ struct Queue <T: Containable> {
         elements.removeFirst()
     }
     
-    
+    func calculateEatenCalories() -> Double {
+        return weight * caloric
+    }
+        
     func filterSpecificWeight(indices: Int...) -> Double {
         var totalSpecificWeight = 0.0
         for index in indices where index >= 0 && Int(index) < elements.count && elements[Int(index)].weight <= 70 {
@@ -102,18 +105,17 @@ struct Queue <T: Containable> {
         return totalSpecificWeight
     }
     
-    func filter(array: [Int]) -> [Int] {
-        var resultArray = [Int]()
+    func filterSpecifiCaloric(array: [Double]) -> [Double] {
+        var specificCaloricNewArray = [Double]()
         
         for index in array {
             guard index >= 0 && Int(index) < elements.count else {return []} // тут после else возвращаю пустой массив, так как надо перехватить ошибку, а строку или 0 компилятор не позволяет поставить
             if elements[Int(index)].caloric <= 55.0 {
-            resultArray.append(index)
+                specificCaloricNewArray.append(index)
             }
         }
-        return resultArray
+        return specificCaloricNewArray
     }
-    
     
     subscript (index: Int) -> Double? {
         guard index >= 0 && index < elements.count else {return nil}
@@ -128,7 +130,6 @@ struct Queue <T: Containable> {
         return caloric
     }
 }
-
 var queue = Queue<Vegetables>(weight: 0.0, caloric: 0.0, fats: 0.0, carbs: 0.0, proteins: 0.0)
 queue.push(Vegetables(fats: 110.45, carbs: 55.5, caloric: 48.0, proteins: 34.1, weight: 100.0, fibers: 12.4))
 queue.push(Vegetables(fats: 120.6, carbs: 76.1, caloric: 59.0, proteins: 32.1, weight: 90.0, fibers: 35.4))
@@ -151,5 +152,6 @@ print(queue.totalProteins)
 
 print(queue[0])
 print(queue.filterSpecificWeight(indices: 0,1,2,3,4,5,6,7))
+print(queue.filterSpecifiCaloric(array: [0,1,2,3,4,5,6,7]))
 
 
