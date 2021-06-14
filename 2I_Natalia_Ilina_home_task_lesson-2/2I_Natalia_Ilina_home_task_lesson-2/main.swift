@@ -1,358 +1,155 @@
 import Foundation
 
+//MARK: - Домашнее задание к Уроку 6 (Дженерики. Замыкания. Subscripting. Функции высшего порядка.)
 
-//Описать класс Car c общими свойствами автомобилей и пустым методом действия по аналогии с прошлым заданием.
-//Описать пару его наследников TrunkCar и SportCar. Подумать, какими отличительными свойствами обладают эти автомобили. Описать в каждом наследнике специфичные для него свойства.
-//Взять из прошлого урока enum с действиями над автомобилем. Подумать, какие особенные действия имеет TrunkCar, а какие – SportCar. Добавить эти действия в перечисление.
-//В каждом подклассе переопределить метод действия с автомобилем в соответствии с его классом.
-//Создать несколько объектов каждого класса. Применить к ним различные действия.
-//Вывести значения свойств экземпляров в консоль.
+//Реализовать свой тип коллекции «очередь» (queue) c использованием дженериков.
+//Добавить ему несколько методов высшего порядка, полезных для этой коллекции (пример: filter для массивов)
+//*Добавить свой subscript, который будет возвращать nil в случае обращения к несуществующему индексу.
 
-
-//enum CarType {
-//    case truck, passenger, sport
-//}
-//enum CarBrand {
-//    case Lamborghini, MacLaren, Renault, VOLVO, Tesla
-//}
-//enum CarEngineType {
-//    case diesel, petrol, electric, hybrid
-//}
-//enum StartEngine {
-//    case on, off
-//}
-//enum StateWindows {
-//    case open, lock
-//}
-//enum LoadCargo1000Cm3 {
-//    case possible
-//    case impossible (status: InitialStorageStatus)
-//    enum InitialStorageStatus {
-//        case full, empty
-//    }
-//    enum AssistantStatus {
-//        case required
-//        case unnecessary
-//    }
-//}
-//
-////
-////class Car {
-////    let carType: CarType
-////    var brandName: CarBrand
-////    var issue: UInt
-////    let volumeStorageCm3: UInt
-////    var startEngine: StartEngine
-////    var mileage = 0
-////
-////    static var carCount = 0
-////
-////    init(carType: CarType, brandName: CarBrand,issue: UInt, volumeStorageCm3:UInt, startEngine: StartEngine, mileage: Int ) {
-////        self.carType = carType
-////        self.brandName = brandName
-////        self.issue = issue
-////        self.volumeStorageCm3 = volumeStorageCm3
-////        self.startEngine = startEngine
-////        self.mileage = mileage
-////
-////        Car.carCount += 1
-////    }
-////    static func countInfo() {
-////        print("Всего \(carCount)")
-////    }
-////    func startEngineOff() {
-////        startEngine = .off
-////    }
-////    func startEngineOn() {
-////        startEngine = .on
-////    }
-////    func maintenanceAnnual() {
-////        let year = Calendar.current.component(.year, from: Date())
-////        if (UInt(year) - issue) <= 3 {
-////            print ("All is good! Maintennace isn't required")
-////        } else if (UInt(year) - issue) > 3 {
-////            print ("Car is older than 3 years! Annual maintenace is required")
-////        }
-////    }
-////}
-////
-////
-//
-//enum LoadType {
-//    case back
-//    case top
-//    case side
-//}
-//enum TruckType {
-//    case fridge
-//    case dump
-//    case tent
-//}
-//
-//
-//
-//class TruckCar: Car {
-//    var truckType: TruckType
-//    var loadType: LoadType
-//    var loadVolume: Int
-//
-//    init(carType: CarType, brandName: CarBrand, issue: UInt, volumeStorageCm3: UInt, startEngine: StartEngine, mileage: Int, truckType: TruckType, loadType: LoadType, loadVolume: Int) {
-//        self.truckType = truckType
-//        self.loadType = loadType
-//        self.loadVolume = loadVolume
-//
-//
-//        super.init(carType: carType, brandName: brandName, issue: issue, volumeStorageCm3: volumeStorageCm3, startEngine: startEngine, mileage: mileage)
-//    }
-//
-//    func fridgeTruckType() {
-//        truckType = .fridge
-//    }
-//
-//    func dumpTruckType() {
-//        truckType = .dump
-//    }
-//    func tentTruckType() {
-//        truckType = .tent
-//    }
-//
-//    func backLoadType() {
-//        loadType = .back
-//    }
-//
-//    func topLoadType() {
-//        loadType = .top
-//    }
-//
-//    func sideLoadType() {
-//        loadType = .side
-//    }
-//    func availableLoadVolume() {
-//        let loadCapacity:Int = 72000
-//        let availableVolume = loadCapacity - loadVolume
-//        if availableVolume > 0 {
-//            print ("Available load volume is \(availableVolume)cm3")
-//        } else if availableVolume < 0 {
-//            print ("Incorrect load volume! Truck is overloaded. Try to change volume. It must be less than 72 000 cm3")
-//        } else if availableVolume == 0 {
-//            print ("Truck is full. Avaiable volume is 0")
-//        }
-//    }
-//}
-//
-//
-//enum SportType {
-//    case coupe
-//    case roadster
-//}
-//
-//
-//class SportCar: Car {
-//    var sportType: SportType
-//    var enginePower: Int
-//    var speed100: Double
-//    override var mileage: Int {
-//        //Перезапись переменной "пробег", установка наблюдателя за ней и вывод информации о необходимсти замены колодок в консоль
-//        willSet {
-//            let checkPointDistance = 1000
-//            let distance = newValue - mileage
-//            if distance > checkPointDistance {
-//                print ("Car passed the distance \(distance) km. Important! Time to replace brakepads has come \(distance - checkPointDistance) km ago!")
-//            } else if distance < checkPointDistance {
-//                print ("All is good! After \(checkPointDistance - distance) km replace brakepads")
-//            } else if distance == checkPointDistance {
-//                print ("Time to replace brakepads right now!")
-//            }
-//        }
-//    }
-//
-//    init(carType: CarType, brandName: CarBrand, issue: UInt, volumeStorageCm3: UInt, startEngine: StartEngine, mileage: Int, sportType: SportType, enginePower: Int, speed100: Double) {
-//        self.sportType = sportType
-//        self.enginePower = enginePower
-//        self.speed100 = speed100
-//
-//        super.init(carType: carType, brandName: brandName, issue: issue, volumeStorageCm3: volumeStorageCm3, startEngine: startEngine, mileage: mileage)
-//
-//        self.mileage = mileage
-//
-//    }
-//    func sportTypeCoupe() {
-//        sportType = .coupe
-//    }
-//    func sportTypeRoadster() {
-//        sportType = .roadster
-//    }
-//}
-//
-//
-//
-//
-////MARK*: Создание экземпляров класса Car и его наследников TruckCar и SportCar
-//
-//var car1 = Car(carType: .passenger, brandName: .Lamborghini, issue: 2021, volumeStorageCm3: 100, startEngine: .off, mileage: 153)
-//var car2 = Car(carType: .truck, brandName: .Renault, issue: 2008, volumeStorageCm3: 72000, startEngine: .off, mileage: 25300)
-//
-//var truck1 = TruckCar(carType: .truck, brandName: .VOLVO, issue: 2009, volumeStorageCm3: 72000, startEngine: .off, mileage: 120000, truckType: .fridge, loadType: .back, loadVolume: 72000)
-//
-//
-//var sport1 = SportCar(carType: .sport, brandName: .Lamborghini, issue: 2021, volumeStorageCm3: 100, startEngine: .off, mileage: 0, sportType: .coupe, enginePower: 625, speed100: 3.0)
-//
-//sport1.mileage = 1000
-//
-//
-//print(sport1.mileage)
-//
-//print("———————————————")
-//print (sport1)
-//
-//
-//
-//
-//print("———————————————")
-//
-//print(car1.mileage, car2.mileage)
-//car2 = car1
-//
-//print(car1.mileage, car2.mileage)
-//car1.mileage = 100
-//
-//print(car1.mileage, car2.mileage)
-//
-//print (Car.carCount)
-//Car.countInfo()
-//
-//
-//truck1.availableLoadVolume()
-//truck1.loadVolume = 147000
-//truck1.availableLoadVolume()
-//truck1.loadVolume = 15000
-//truck1.availableLoadVolume()
-//
-
-
-
-//MARK: - Домашнее задание к Уроку 5 (Протоколы, расширения...)
-
-//Создать протокол «Car» и описать свойства, общие для автомобилей, а также метод действия.
-//
-//2. Создать расширения для протокола «Car» и реализовать в них методы конкретных действий с автомобилем: открыть/закрыть окно, запустить/заглушить двигатель и т.д. (по одному методу на действие, реализовывать следует только те действия, реализация которых общая для всех автомобилей).
-//
-//3. Создать два класса, имплементирующих протокол «Car» - trunkCar и sportСar. Описать в них свойства, отличающиеся для спортивного автомобиля и цистерны.
-//
-//4. Для каждого класса написать расширение, имплементирующее протокол CustomStringConvertible.
-//
-//5. Создать несколько объектов каждого класса. Применить к ним различные действия.
-//
-//6. Вывести сами объекты в консоль.
-
-enum CarType {
-    case Trunk, Passenger, Sport
-}
-enum StartEngine {
-    case On, Off
-}
-enum StateWindows {
-    case Open, Lock
-}
-enum StateDoor {
-    case Open, Lock
+protocol Containable {
+    var fats: Double { get set }
+    var carbs: Double {get set}
+    var proteins: Double { get set }
+    var caloric: Double { get set }
+    var weight: Double { get set }
 }
 
 
-protocol CarProtocol {
-    func changeStateDoor(to: StateDoor)
-    func changeStartEngine(to: StartEngine)
-    func changeStateWindow(to: StateWindows)
-}
-
-class SportCar: CarProtocol {
-    func changeStateDoor(to: StateDoor) {
-        stateDoor = to
-    }
+class Vegetables: Containable {
+    var fats: Double
+    var carbs: Double
+    var proteins: Double
+    var caloric: Double
+    var weight: Double
     
-    func changeStartEngine(to: StartEngine) {
-        startEngine = to
-    }
+    var fibers: Double
     
-    func changeStateWindow(to: StateWindows) {
-        stateWindows = to
-    }
-    
-    var carType: CarType
-    var issue: UInt
-    var startEngine: StartEngine
-    var stateDoor: StateDoor
-    var stateWindows: StateWindows
-    var enginePowerHp: UInt
-
-    
-    init(carType: CarType, issue: UInt, startEngine: StartEngine, stateDoor: StateDoor, stateWindows: StateWindows, enginePowerHp: UInt ) {
-        self.carType = carType
-        self.issue = issue
-        self.startEngine = startEngine
-        self.stateDoor = stateDoor
-        self.stateWindows = stateWindows
-        self.enginePowerHp = enginePowerHp
+    init(fats: Double, carbs: Double, caloric: Double, proteins: Double, weight: Double, fibers: Double) {
+        self.fats = fats
+        self.carbs = carbs
+        self.proteins = proteins
+        self.caloric = caloric
+        self.weight = weight
+        self.fibers = fibers
+        
+        func calculateEatenCalories() -> Double {
+            return weight * caloric
+        }
     }
 }
 
 
-class TrunkCar: CarProtocol {
-    func changeStateDoor(to: StateDoor) {
-        stateDoor = to
+struct Queue <T: Containable> {
+    var elements: [T] = []
+    var weight: Double
+    var caloric: Double
+    var fats: Double
+    var carbs: Double
+    var proteins: Double
+    
+    var totalCaloric: Double {
+        var caloric = 0.0
+        for element in elements {
+            caloric += element.caloric
+        }
+        return caloric
+    }
+    var totalWeight: Double {
+        var weight = 0.0
+        for element in elements {
+            weight += element.weight
+        }
+        return weight
     }
     
-    func changeStartEngine(to: StartEngine) {
-        startEngine = to
+    var totalFats: Double {
+        var fats = 0.0
+        for element in elements {
+            fats += element.fats
+        }
+        return fats
     }
     
-    func changeStateWindow(to: StateWindows) {
-        stateWindows = to
+    var totalCarbs: Double {
+        var carbs = 0.0
+        for element in elements {
+            carbs += element.carbs
+        }
+        return carbs
     }
     
-    var carType: CarType
-    var issue: UInt
-    var startEngine: StartEngine
-    var stateDoor: StateDoor
-    var stateWindows: StateWindows
-    var trunkVolume: UInt
+    var totalProteins: Double {
+        var proteins = 0.0
+        for element in elements {
+            proteins += element.proteins
+        }
+        return proteins
+    }
     
-    init(carType: CarType, issue: UInt, startEngine: StartEngine, stateDoor: StateDoor, stateWindows: StateWindows, trunkVolume: UInt) {
-        self.carType = carType
-        self.issue = issue
-        self.startEngine = startEngine
-        self.stateDoor = stateDoor
-        self.stateWindows = stateWindows
-        self.trunkVolume = trunkVolume
+    mutating func push(_ element: T) {
+        elements.append(element)
+    }
+    mutating func pop() -> T? {
+        elements.removeFirst()
+    }
+    
+    
+    func filterSpecificWeight(indices: Int...) -> Double {
+        var totalSpecificWeight = 0.0
+        for index in indices where index >= 0 && Int(index) < elements.count && elements[Int(index)].weight <= 70 {
+            totalSpecificWeight += elements[index].weight
+        }
+        return totalSpecificWeight
+    }
+    
+    func filter(array: [Int]) -> [Int] {
+        var resultArray = [Int]()
+        
+        for index in array {
+            guard index >= 0 && Int(index) < elements.count else {return []} // тут после else возвращаю пустой массив, так как надо перехватить ошибку, а строку или 0 компилятор не позволяет поставить
+            if elements[Int(index)].caloric <= 55.0 {
+            resultArray.append(index)
+            }
+        }
+        return resultArray
+    }
+    
+    
+    subscript (index: Int) -> Double? {
+        guard index >= 0 && index < elements.count else {return nil}
+        return elements[index].proteins
+    }
+    
+    subscript (indices: UInt...) -> Double {
+        var caloric = 0.0
+        for index in indices where index < self.elements.count {
+            caloric += self.elements[Int(index)].caloric
+        }
+        return caloric
     }
 }
 
+var queue = Queue<Vegetables>(weight: 0.0, caloric: 0.0, fats: 0.0, carbs: 0.0, proteins: 0.0)
+queue.push(Vegetables(fats: 110.45, carbs: 55.5, caloric: 48.0, proteins: 34.1, weight: 100.0, fibers: 12.4))
+queue.push(Vegetables(fats: 120.6, carbs: 76.1, caloric: 59.0, proteins: 32.1, weight: 90.0, fibers: 35.4))
+queue.push(Vegetables(fats: 100.4, carbs: 88.4, caloric: 54.0, proteins: 30.1, weight: 59.0, fibers: 33.4))
+
+queue.pop()
+queue.pop()
+
+queue.push(Vegetables(fats: 120.6, carbs: 76.1, caloric: 59.0, proteins: 32.1, weight: 90.0, fibers: 35.4))
+queue.push(Vegetables(fats: 100.4, carbs: 88.4, caloric: 54.0, proteins: 36.1, weight: 22.0, fibers: 33.4))
+queue.push(Vegetables(fats: 120.6, carbs: 76.1, caloric: 59.0, proteins: 32.1, weight: 47.0, fibers: 35.4))
+queue.push(Vegetables(fats: 100.4, carbs: 88.4, caloric: 54.0, proteins: 18.1, weight: 21.0, fibers: 33.4))
+
+print(queue.totalWeight)
+print(queue.totalCaloric)
+print(queue.totalFats)
+print(queue.totalCarbs)
+print(queue.totalProteins)
 
 
-extension SportCar: CustomStringConvertible {
-    
-    var description:  String {
-        return "Summary \n ––––––––––––––––– \n Car – \(carType) \n Issue – \(issue) \n Engine state – \(startEngine)\n State doors – \(stateDoor) \n State windows – \(stateWindows)\n Engine Power Hp – \(enginePowerHp)\n"
-    }
-}
-
-extension TrunkCar: CustomStringConvertible {
-    var description:  String {
-        return "Summary \n ––––––––––––––––– \n Car – \(carType) \n Issue – \(issue) \n Engine state –  \(startEngine) \n State doors – \(stateDoor) \n State windows – \(stateWindows) \n Trunk volume –  \(trunkVolume)"
-    }
-}
-
-let car1 = SportCar(carType: .Sport, issue: 2021, startEngine: .Off, stateDoor: .Lock, stateWindows: .Lock, enginePowerHp: 625)
-let car2 = SportCar(carType: .Sport, issue: 2020, startEngine: .Off, stateDoor: .Lock, stateWindows: .Open, enginePowerHp: 598)
-
-let trunk1 = TrunkCar(carType: .Trunk, issue: 2019, startEngine: .On, stateDoor: .Open, stateWindows: .Open, trunkVolume: 100000)
-
-print (car1)
-print (trunk1)
-
-car1.stateDoor = .Open
-trunk1.stateDoor = .Lock
+print(queue[0])
+print(queue.filterSpecificWeight(indices: 0,1,2,3,4,5,6,7))
 
 
-print (car1)
-print (trunk1)
