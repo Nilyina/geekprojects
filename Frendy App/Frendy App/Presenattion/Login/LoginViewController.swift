@@ -2,7 +2,7 @@
 //  LoginViewController.swift
 //  Frendy App
 //
-//  Created by nilyina on 04.07.2021.
+//  Created by Natalia Ilina on 04.07.2021.
 //
 import UIKit
 
