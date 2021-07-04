@@ -49,9 +49,9 @@
                                                     <constraint firstAttribute="height" constant="49" id="oNV-3t-xaQ"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
-                                                <textInputTraits key="textInputTraits" returnKeyType="done" smartInsertDeleteType="yes" textContentType="username"/>
+                                                <textInputTraits key="textInputTraits" returnKeyType="next" smartInsertDeleteType="yes" textContentType="username"/>
                                             </textField>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="pcA-84-ekV">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" minimumFontSize="20" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="pcA-84-ekV">
                                                 <rect key="frame" x="32" y="384" width="350" height="51"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -61,7 +61,7 @@
                                                     <constraint firstAttribute="height" constant="51" id="mF1-zj-jr7"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
-                                                <textInputTraits key="textInputTraits" returnKeyType="done" secureTextEntry="YES" textContentType="password"/>
+                                                <textInputTraits key="textInputTraits" returnKeyType="go" secureTextEntry="YES" textContentType="password"/>
                                             </textField>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kmQ-Rs-llo">
                                                 <rect key="frame" x="32" y="459" width="350" height="54"/>
@@ -112,9 +112,11 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="Dte-u3-xXr" firstAttribute="bottom" secondItem="9oT-od-9JF" secondAttribute="bottom" id="2ZX-Xm-mkO"/>
+                                    <constraint firstItem="Dte-u3-xXr" firstAttribute="centerY" secondItem="9oT-od-9JF" secondAttribute="centerY" id="2vL-G4-fr7"/>
                                     <constraint firstItem="Dte-u3-xXr" firstAttribute="centerY" secondItem="9oT-od-9JF" secondAttribute="centerY" id="9vy-4w-CgN"/>
-                                    <constraint firstAttribute="trailing" secondItem="Dte-u3-xXr" secondAttribute="trailing" id="Ag3-hg-1Ee"/>
-                                    <constraint firstItem="Dte-u3-xXr" firstAttribute="leading" secondItem="9oT-od-9JF" secondAttribute="leading" id="bdu-0L-yRx"/>
+                                    <constraint firstItem="Dte-u3-xXr" firstAttribute="leading" secondItem="9oT-od-9JF" secondAttribute="leading" id="IXu-cu-cFl"/>
+                                    <constraint firstAttribute="trailing" secondItem="Dte-u3-xXr" secondAttribute="trailing" id="QZh-q2-596"/>
+                                    <constraint firstItem="Dte-u3-xXr" firstAttribute="centerY" secondItem="9oT-od-9JF" secondAttribute="centerY" id="l6Q-XL-xam"/>
                                     <constraint firstItem="Dte-u3-xXr" firstAttribute="top" secondItem="9oT-od-9JF" secondAttribute="top" id="vVt-38-JMg"/>
                                 </constraints>
                             </scrollView>
@@ -122,13 +124,13 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="9oT-od-9JF" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="1c8-ID-wGE"/>
-                            <constraint firstItem="9oT-od-9JF" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="BWK-x5-jYV"/>
+                            <constraint firstAttribute="trailing" secondItem="9oT-od-9JF" secondAttribute="trailing" id="9ck-gP-6o5"/>
                             <constraint firstItem="Dte-u3-xXr" firstAttribute="width" secondItem="6Tk-OE-BBY" secondAttribute="width" id="HMh-Lx-mtD"/>
                             <constraint firstItem="9oT-od-9JF" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="KWh-jN-QT8"/>
+                            <constraint firstItem="Dte-u3-xXr" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="NFX-Xh-Zek"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="9oT-od-9JF" secondAttribute="bottom" id="PRC-HE-0Nl"/>
-                            <constraint firstItem="9oT-od-9JF" firstAttribute="width" secondItem="6Tk-OE-BBY" secondAttribute="width" id="wDK-Yx-xwW"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="9oT-od-9JF" secondAttribute="trailing" id="xLT-cC-cGf"/>
+                            <constraint firstItem="Dte-u3-xXr" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="idw-cf-Mmh"/>
+                            <constraint firstItem="9oT-od-9JF" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="meE-Y8-pl7"/>
                         </constraints>
                     </view>
                     <connections>
