@@ -24,7 +24,7 @@ final class LoginViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        //Подписываемся на два уведомления: одно приходит при появлении клавиатуры
+        // Подписываемся на два уведомления: одно приходит при появлении клавиатуры
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWasShown), name: UIResponder.keyboardWillShowNotification, object: nil)
             // Второе — когда клавиатура пропадает
         
@@ -41,7 +41,7 @@ final class LoginViewController: UIViewController {
     }
     
     @IBAction private func loginButtonPressed(_ sender: UIButton) {
-        //Получаем текст логина
+        //    Получаем текст логина
         guard
             let login = loginTextField.text,
         //Получаем текст-пароль
@@ -89,7 +89,7 @@ final class LoginViewController: UIViewController {
         titleImageView.layer.cornerRadius = 14
         loginButton.setTitle("Log In", for: .normal)
         loginButton.layer.cornerRadius = 8
-        loginButton.setTitleColor(.init(red: 15, green: 115, blue: 233, alpha: 1), for: .selected)
+        loginButton.setTitleColor(.init(red: 15, green: 115, blue: 233, alpha: 1), for: .highlighted)
         loginTextField.layer.cornerRadius = 8
         loginTextField.layer.borderWidth = 2
         loginTextField.layer.borderColor = .init(red: 0, green: 0, blue: 0, alpha: 1)
